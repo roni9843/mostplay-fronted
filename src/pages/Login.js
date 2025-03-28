@@ -277,7 +277,7 @@ useEffect(() => {
             </Form>
 
             <SignUpLink onClick={() => navigate("/register")}>
-              একটি অ্যাকাউন্ট নেই কি? <Link to="/register">রেজিস্টার</Link>
+            একটি একাউন্ট আছে কি না? <Link to="/register">রেজিস্টার</Link>
             </SignUpLink>
 
             {error && <ErrorMessage>{error}</ErrorMessage>}
