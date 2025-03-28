@@ -47,18 +47,23 @@ export default function Header() {
     navigate('/login');
   };
 
+  const handleSignupClick = () => {
+    navigate('/register');
+  };
+
   return (
     <HeaderContainer>
       <Logo src={logo_white} alt="Logo" />
       <div>
-        <Button style={{ backgroundColor: '#F4B600' }}
+        <Button
+          style={{ backgroundColor: '#F4B600' }}
           onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#A67C00')}
           onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#F4B600')}
           onClick={handleLoginClick}
         >
           লগ ইন
         </Button>
-        <Button>সাইন আপ</Button>
+        <Button onClick={handleSignupClick}>সাইন আপ</Button>
         <img src={bd_flag} alt="Bangladesh Flag" style={{ width: '30px', height: '30px', marginLeft: '10px' }}/>
       </div>
     </HeaderContainer>

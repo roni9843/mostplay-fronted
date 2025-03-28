@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FaTimes, FaEye } from "react-icons/fa";
 import logo from "../assets/logo.png";
@@ -213,6 +213,15 @@ export default function Login() {
     if (field === "password") setPassword("");
   };
 
+
+useEffect(() => {
+  return () => {
+    // Reset the error state when the component unmounts
+    dispatch({ type: 'auth/clearError' });
+  };
+}, [dispatch]);
+
+
   return (
     <Container>
       <div>
@@ -267,8 +276,8 @@ export default function Login() {
               </Button>
             </Form>
 
-            <SignUpLink>
-              একটি অ্যাকাউন্ট নেই কি? <a href="#">সাইন আপ</a>
+            <SignUpLink onClick={() => navigate("/register")}>
+              একটি অ্যাকাউন্ট নেই কি? <Link to="/register">রেজিস্টার</Link>
             </SignUpLink>
 
             {error && <ErrorMessage>{error}</ErrorMessage>}
