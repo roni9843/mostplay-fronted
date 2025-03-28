@@ -1,6 +1,6 @@
 import React from "react";
 import { styled } from "styled-components";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 import HomePageSlider from "../components/HomePageSlider";
 import NoticeText from "../components/NoticeText";
 import HomeMenu from '../components/HomePageMenu/HomeMenu';
