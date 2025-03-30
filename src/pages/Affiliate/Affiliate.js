@@ -4,6 +4,8 @@ import AffiliateHeader from './AffiliateHeader';
 import AffiliateBanner from './AffiliateBanner';
 import Affiliate_des from './Affiliate_des';
 import Affiliate_product from './Affiliate_product';
+import Affiliate_REGISTRATION from './Affiliate_REGISTRATION';
+import Affiliate_BENEFITS from './Affiliate_BENEFITS';
 
 const StyledAffiliate = styled.div`
   background-color: #0E2749;
@@ -22,6 +24,8 @@ export default function Affiliate() {
     <StyledAffiliate>
      <Affiliate_des />
      <Affiliate_product />
+     <Affiliate_REGISTRATION />
+     <Affiliate_BENEFITS />
     </StyledAffiliate>
     </>
 
