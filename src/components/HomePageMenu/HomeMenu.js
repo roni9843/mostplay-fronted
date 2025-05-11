@@ -1,29 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import home_menu_1 from "../../assets/home_menu_1.png";
 import home_menu_1_blue from "../../assets/home_menu_1_blue.png";
 import HomePageMenuOption from './HomePageMenuOption';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchHomeGameMenu } from '../../features/home-game-menu/GameHomeMenuSliceAndThunks';
 
 
 const MenuContainer = styled.div`
-margin-top: 20px;
+  margin-top: ${props => `${props.marginTop}px` || "20px"};
   width: 100%;
   height: 70px; // Ensure consistent height
   padding: 0 16px;  // Remove extra padding on top/bottom
-  background-color: #F7B704;
+  background-color: ${props => props.bdColor};
   overflow-x: auto;
   overflow-y: hidden; // Prevent vertical scroll
   scrollbar-width: thin;
-  scrollbar-color: #054EA1 #F7B704;
+  scrollbar-color: ${props => props.bdColor};
   display: flex;
   align-items: center;  // Center items vertically
   border-radius: 5px;
   &::-webkit-scrollbar {
     height: 6px;
-  }
+  };
 
   &::-webkit-scrollbar-track {
-    background: #F7B704;
+    background: ${props => props.bdColor};
   }
 
   &::-webkit-scrollbar-thumb {
@@ -55,6 +57,15 @@ const MenuWrapper = styled.div`
   }
 `;
 
+
+
+/**
+ *  headerBgColor: '#fbff05',
+ *  headerMenuBgColor: '#2ce250',
+      headerMenuBgHoverColor: '#ff0000',
+      subOptionBgHoverColor: '#ff8b4d',
+ */
+
 const MenuItem = styled.div`
   padding: 20px;
   margin: 5px;
@@ -64,8 +75,8 @@ const MenuItem = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: ${props => props.isActive ? '#054EA1' : '#F7B704'};
-  color: ${props => props.isActive ? '#F7B704' : '#054EA1'};
+  background-color: ${props => props.isActive ? props.bdColor : props.bdColorALL};
+  color: ${props => props.isActive ? props.bdColorALL : props.bdColor};
   padding: 0 12px; // Adjust horizontal padding only
   border-radius: 6px;
   min-width: 90px;
@@ -74,7 +85,8 @@ const MenuItem = styled.div`
   white-space: nowrap;
 
   &:hover {
-    background-color: ${props => props.isActive ? '#0861d6' : '#F7B704'};
+    background-color: ${props => props.hoverColor };
+    color: ${props =>  props.bdColor}
   }
 
   @media (max-width: 768px) {
@@ -93,6 +105,8 @@ const MenuImage = styled.img`
   height: 24px;
   display: block;
   margin: 0 auto 0.4rem;
+  
+  margin-top: 5px;
 
   @media (max-width: 768px) {
     width: 24px;  
@@ -128,6 +142,62 @@ const MenuText = styled.div`
 
 export default function HomeMenu() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [subMenu,setSubmenu] = useState([]);
+
+
+
+  const { homeGameMenu, isLoading, isSuccess, isError, errorMessage } = useSelector(
+    (state) => state.homeGameMenu
+  );
+
+  const { language } = useSelector((state) => state.theme);
+
+
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchHomeGameMenu());
+  }, [dispatch]);
+
+  useEffect(() => {
+ 
+    if(homeGameMenu?.menuOptions?.length){
+      setSubmenu(homeGameMenu?.menuOptions[0]?.subOptions || [])
+    }
+   
+
+  }, [homeGameMenu])
+  
+
+
+  if (isLoading) {
+    return (
+      <div style={{marginBottom : `${homeGameMenu?.gameNavMenuMarginBottom}px`  } }>
+        <MenuContainer 
+        marginTop={ homeGameMenu?.gameBoxMarginTop }
+        marginBottom={ homeGameMenu?.headerMarginBottom }
+        bdColor={ homeGameMenu?.headerMenuBgColor }
+        >
+     
+        </MenuContainer>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div style={{marginBottom : `${homeGameMenu?.gameNavMenuMarginBottom}px`  } }>
+        <MenuContainer 
+        marginTop={ homeGameMenu?.gameBoxMarginTop }
+        marginBottom={ homeGameMenu?.headerMarginBottom }
+        bdColor={ homeGameMenu?.headerMenuBgColor }
+        >
+        <div style={{display : 'flex', justifyContent : 'center', alignItems : 'center', color : 'red'}}>Error: {errorMessage}</div>
+        </MenuContainer>
+      </div>
+    );
+  }
 
   const menuItems = [
     { title: "Dashboard" },
@@ -140,31 +210,42 @@ export default function HomeMenu() {
     { title: "Calendar" },
    ];
 
-  const handleItemClick = (index) => {
-    setActiveIndex(index === activeIndex ? null : index);
-  };
+
+
 
   return (
-    <div>
-    <MenuContainer>
+    <div style={{marginBottom : `${homeGameMenu?.gameNavMenuMarginBottom}px`  } }>
+    <MenuContainer 
+    marginTop={ homeGameMenu?.gameBoxMarginTop }
+    marginBottom={ homeGameMenu?.headerMarginBottom }
+    bdColor={ homeGameMenu?.headerBgColor }
+    >
     <MenuWrapper>
-      {menuItems.map((item, index) => (
+      {homeGameMenu && homeGameMenu?.menuOptions?.map((item, index) => (
         <MenuItem 
+        bdColor={homeGameMenu?.headerMenuBgColor}
+         bdColorALL={ homeGameMenu?.headerBgColor }
+         hoverColor = {homeGameMenu?.headerMenuBgHoverColor}
           key={index}
           isActive={index === activeIndex}
-          onClick={() => handleItemClick(index)}
+          onClick={() =>{
+              setActiveIndex(index === activeIndex ? null : index);
+              setSubmenu(item.subOptions)
+            }}
         >
           <MenuImage 
-            src={index === activeIndex ? home_menu_1 : home_menu_1_blue}
+            src={item.image}
             alt={`${item.title} icon`}
           />
-          <MenuText>{item.title}</MenuText>
+          <MenuText>{language === "bd" ? item.titleBD : item.title}</MenuText>
         </MenuItem>
       ))}
     </MenuWrapper>
   </MenuContainer>
-  <HomePageMenuOption />
+{ subMenu &&  <HomePageMenuOption hoverColor={homeGameMenu.subOptionBgHoverColor} subMenu={subMenu} /> }
     </div>
 
   );
 }
+
+

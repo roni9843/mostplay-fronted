@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import home_menu_option_1 from "../../assets/home_menu_option_1.png"
+import { Link } from 'react-router-dom';
+import useLangPath from '../../hooks/useLangPath';
+import { useSelector } from 'react-redux';
 
-
-
-const OptionWrapper = styled.div`
- // height: 50px;
+const OptionWrapper = styled(Link)`
+  // height: 50px;
   background-color: white;
   border-radius: 5px;
   margin-bottom: 5px; 
@@ -13,6 +13,14 @@ const OptionWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    background-color: ${props => props.hoverColor };
+    color:  white
+  }
+
   @media (max-width: 768px) {
     padding: 10px;
     img {
@@ -31,16 +39,24 @@ const OptionText = styled.span`
   text-align: center;
 `;
 
-export default function HomePageMenuOption() {
-  const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; // Example array to map over
+export default function HomePageMenuOption({subMenu,hoverColor}) {
+
+  const langPath = useLangPath();
+
+  const { language } = useSelector((state) => state.theme);
+
 
   return (
     <div className='row mt-2 m-0 p-0'>
-      {items.map((item, index) => (
+      {subMenu.map((item, index) => (
         <div className='col-4 col-md-2 p-1 m-0' key={index}>
-          <OptionWrapper>
-            <img src={home_menu_option_1} alt={`Menu option ${item}`} />
-            <OptionText>Item {item}</OptionText>
+          <OptionWrapper 
+          to={langPath(`game/${item._id}`)}
+      
+            hoverColor={hoverColor}
+          >
+            <img src={item.image} alt={`Menu option `} />
+            <OptionText>{language === "bd" ? item.titleBD : item.title}</OptionText>
           </OptionWrapper>
         </div>
       ))}

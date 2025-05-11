@@ -6,6 +6,8 @@ import Affiliate_des from './Affiliate_des';
 import Affiliate_product from './Affiliate_product';
 import Affiliate_REGISTRATION from './Affiliate_REGISTRATION';
 import Affiliate_BENEFITS from './Affiliate_BENEFITS';
+import COMMISSION_PLAN from './COMMISSION_PLAN';
+import Affiliate_footer from './Affiliate_footer';
 
 const StyledAffiliate = styled.div`
   background-color: #0E2749;
@@ -21,14 +23,30 @@ export default function Affiliate() {
     <>
     <AffiliateHeader />
     <AffiliateBanner />
+
+
     <StyledAffiliate>
-     <Affiliate_des />
-     <Affiliate_product />
-     <Affiliate_REGISTRATION />
-     <Affiliate_BENEFITS />
+    <Affiliate_des />
+    <Affiliate_product />
+    <COMMISSION_PLAN />
+    <Affiliate_REGISTRATION />
+    <Affiliate_BENEFITS />
     </StyledAffiliate>
+
+    <Affiliate_footer />
     </>
 
   )
 }
 
+
+
+/**
+ *     <StyledAffiliate>
+<Affiliate_des />
+<Affiliate_product />
+<COMMISSION_PLAN />
+<Affiliate_REGISTRATION />
+<Affiliate_BENEFITS />
+</StyledAffiliate>
+ */

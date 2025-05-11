@@ -1,4 +1,7 @@
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { keyframes } from 'styled-components';
+import { getNotices } from '../features/notice/NoticeControlThunk';
 
 const scroll = keyframes`
   0% {
@@ -16,24 +19,44 @@ const NoticeTextStyled = styled.div`
     animation: ${scroll} 10s linear infinite;
     display: flex;
     align-items: center;
-   
   }
 `;
 
 export default function NoticeText() {
+  const dispatch = useDispatch();
+  
+  const { language } = useSelector((state) => state.theme);
+
+  const { title,titleBD, emoji, active, isLoading, isSuccess, isError, errorMessage, successMessage } = useSelector((state) => state.noticeControl);
+
+
+
+
+  useEffect(() => {
+    dispatch(getNotices());
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>{errorMessage}</div>;
+  }
+
+  if (!active) {
+    return null;
+  }
+
   return (
     <div className='d-flex mt-4'>
-    <div className='px-2'>
-    🔥
+      <div className='px-2'>{emoji}</div>
+      <NoticeTextStyled>
+        <div>
+          {language === "bd" ? (titleBD ? <span>{titleBD}</span> : 'No notices available') : (title ? <span>{title}</span> : 'No notices available')}
+        </div>
+      </NoticeTextStyled>
     </div>
-    <NoticeTextStyled>
-    <div>
-      ! MostPlay-এ স্বাগতম, বাংলাদেশের অন্যতম বিশ্বস্ত অনলাইন গেমিং অ্যাপ! সাইন আপ করে উপভোগ করুন স্লট গেমে দৈনিক ৬৫০% বোনাস এবং ৩.২৫% আনলিমিটেড ডিপোজিট বোনাস। এছাড়াও রয়েছে ২৪/৭ নন-স্টপ ডিপোজিট এবং উইথড্র সুবিধা!
-    </div>
-  </NoticeTextStyled>
-    </div>
-
   );
 }
-
 

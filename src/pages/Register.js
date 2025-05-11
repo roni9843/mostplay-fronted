@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FaTimes, FaEye } from "react-icons/fa";
 import logo from "../assets/logo.png";
 import { signupUser } from "../features/auth/authThunks";
 import HomePageSlider from './../components/HomePageSlider';
+import { clearError } from "../features/auth/authSlice";
+import useLangPath from "../hooks/useLangPath";
 
 // Styled Components
 const Container = styled.div`
@@ -174,8 +176,28 @@ const RegisterSliderContainer = styled.div`
 
 `;
 
+
+
+const LoadingSpinner = styled.div`
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #3b82f6;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`;
+
+
+
 export default function Register() {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
@@ -184,12 +206,50 @@ export default function Register() {
   const [validationError, setValidationError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const langPath = useLangPath();
+  const { loading, error , isAuthenticated } = useSelector((state) => state.auth);
+
+  const location = useLocation();
+const from = location.state?.from?.pathname || "/";
+
+
+useEffect(() => {
+
+  console.log("this is --->> ",from);
+  
+
+  if (isAuthenticated) {
+    navigate(from, { replace: true });
+  }
+}, [isAuthenticated, navigate, from]);
+
+  useEffect(() => {
+    return () => {
+      // Reset the error state when the component unmounts
+      dispatch({ type: 'auth/clearError' });
+    };
+  }, [dispatch]);
+  
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
+    let country = "";
+    if (currency === "BDT") country = "Bangladesh";
+    else if (currency === "INR") country = "India";
+    else if (currency === "PKR") country = "Pakistan";
+    else if (currency === "NPR") country = "Nepal";
+    
+    
     // Validation
-    if (email.length < 4 || email.length > 15) {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailRegex.test(email)) {
+      setValidationError("ব্যবহারকারীর ইমেইল সঠিক নয়।");
+      return;
+    }
+    if (name.length < 4 || name.length > 15) {
       setValidationError("ব্যবহারকারীর নাম ৪-১৫ অক্ষর হতে হবে।");
       return;
     }
@@ -206,15 +266,28 @@ export default function Register() {
       return;
     }
 
+
+
+
     setValidationError("");
-    await dispatch(signupUser({ email, password, confirmPassword, phone, currency }))
+    await dispatch(signupUser({ name,email, password, confirmPassword, phoneNumber : phone, currency,country }))
       .unwrap()
-      .then(() => navigate("/"))
-      .catch((err) => setValidationError(err.message || "Registration failed"));
+      .then(() => {
+        navigate(from || "/dashboard", { replace: true }); //  আগের page এ ফিরে যাও
+      })
+      .catch((err) => {
+       setValidationError( err ||"Registration failed")
+      });
+
+
+
+
+
   };
 
   const handleClear = (field) => {
     if (field === "email") setEmail("");
+    if (field === "name") setName("");
     if (field === "password") setPassword("");
     if (field === "confirmPassword") setConfirmPassword("");
     if (field === "phone") setPhone("");
@@ -255,11 +328,24 @@ export default function Register() {
               <InputWrapper>
                 <Input
                   type="text"
-                  placeholder="৪-১৫ অক্ষর নাম্বার এলাউ"
+                  placeholder="আপনার নাম লিখুন"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  error={validationError.includes("ব্যবহারকারীর নাম ৪-১৫ অক্ষর হতে হবে।")}
+                />
+                {name && <ClearIcon onClick={() => handleClear("name")} />}
+              </InputWrapper>
+
+              <Label>ব্যবহারকারীর ইমেইল</Label>
+              <InputWrapper>
+                <Input
+                  type="email"
+                  placeholder="ইমেইল"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  error={validationError.includes("ব্যবহারকারীর নাম")}
+                  error={validationError.includes("ব্যবহারকারীর ইমেইল সঠিক নয়।")}
                 />
                 {email && <ClearIcon onClick={() => handleClear("email")} />}
               </InputWrapper>
@@ -322,10 +408,11 @@ export default function Register() {
 
               {validationError && <ErrorMessage>{validationError}</ErrorMessage>}
 
-              <Button type="submit">রেজিস্টার</Button>
+
+              {loading ? <LoadingSpinner /> : <Button type="submit">রেজিস্টার</Button>}
 
               <SignUpLink>
-                ইতিমধ্যে একটি অ্যাকাউন্ট আছে? <Link to="/login">লগইন</Link>
+                ইতিমধ্যে একটি অ্যাকাউন্ট আছে? <Link to={langPath(`login`)} >লগইন</Link>
               </SignUpLink>
             </Form>
           </div>
@@ -334,3 +421,6 @@ export default function Register() {
     </Container>
   );
 }
+
+
+
