@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { baseURL } from '../utils/baseURL';
+import { baseURL, baseURL_For_IMG_UPLOAD } from '../utils/baseURL';
 
 // Styled components for the popup
 const PopupOverlay = styled.div`
@@ -143,7 +143,7 @@ export default function Category() {
           poster.images.map((url, index) => (
             <Image
               key={index}
-              src={url}
+              src={`${baseURL_For_IMG_UPLOAD}s/${url}`}
               alt={`Poster ${index}`}
               onClick={() => handleImageClick(url)} // Add click handler
             />
@@ -156,7 +156,7 @@ export default function Category() {
       {/* Popup for displaying the full-size image */}
       {selectedImage && (
         <PopupOverlay onClick={handleClosePopup}>
-          <PopupImage src={selectedImage} alt="Full-size poster" />
+          <PopupImage src={`${baseURL_For_IMG_UPLOAD}s/${selectedImage}`} alt="Full-size poster" />
           <CloseButton onClick={handleClosePopup}>×</CloseButton>
         </PopupOverlay>
       )}

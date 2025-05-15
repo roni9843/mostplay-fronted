@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { FaCircle, FaTimes, FaArrowLeft } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPromotions } from '../../features/promotion/promotionThunkAndSlice';
+import { baseURL_For_IMG_UPLOAD } from '../../utils/baseURL';
 
 // Animations
 const slideIn = keyframes`
@@ -366,7 +367,7 @@ export default function PromotionSideBar({ isOpen, onClose }) {
 
         {selectedPromotion ? (
           <DetailsContainer>
-            <DetailsBannerImage src={selectedPromotion?.img} alt="Promotion Banner" />
+            <DetailsBannerImage src={`${baseURL_For_IMG_UPLOAD}s/${selectedPromotion?.img}`} alt="Promotion Banner" />
             <DetailsTitle>{language === 'bd' ? selectedPromotion?.title_bd : selectedPromotion?.title}</DetailsTitle>
             <DetailsDescription>
               {language === 'bd' ? selectedPromotion?.description_bd : selectedPromotion?.description}
@@ -416,7 +417,7 @@ export default function PromotionSideBar({ isOpen, onClose }) {
           filteredPromotions.map((promo) => (
             <PromotionCard key={promo._id}>
               <div style={{ position: 'relative' }}>
-                <BannerImage src={promo.img} alt="Promotion Banner" />
+                <BannerImage src={`${baseURL_For_IMG_UPLOAD}s/${promo.img}`} alt="Promotion Banner" />
                 <BonusTag>Bonus</BonusTag>
               </div>
               <PromotionContent>

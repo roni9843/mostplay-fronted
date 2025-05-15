@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import useLangPath from '../../hooks/useLangPath';
 import { logout } from '../../features/auth/authSlice';
 import MobileSidebarProfilePage from './MobileSidebarProfilePage';
+import { baseURL_For_IMG_UPLOAD } from '../../utils/baseURL';
 
 const CloseButton = styled.div`
   display: flex;
@@ -395,7 +396,7 @@ const MobileSidebar = ({
                         {item !== '' && (
                           <div onClick={() => setActiveOption(item?.subOptions || [])}>
                             <img
-                              src={item.image}
+                              src={`${baseURL_For_IMG_UPLOAD}s/${item.image}`}
                               alt='sports'
                               style={{
                                 width: '25px',

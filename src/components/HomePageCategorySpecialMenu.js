@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { baseURL } from '../utils/baseURL';
+import { baseURL, baseURL_For_IMG_UPLOAD } from '../utils/baseURL';
 
 const CategoryContainer = styled.div`
   display: flex;
@@ -109,7 +109,7 @@ export default function HomePageCategorySpecial() {
           games.items.map((item, index) => (
             <ImageWrapper key={index}>
               <a href={item.link} target="_blank" rel="noopener noreferrer">
-                <Image src={item.image} alt={item.titleBD} />
+                <Image src={`${baseURL_For_IMG_UPLOAD}s/${item.image}`} alt={item.titleBD} />
               </a>
               <ImageText>{item.titleBD}</ImageText>
             </ImageWrapper>

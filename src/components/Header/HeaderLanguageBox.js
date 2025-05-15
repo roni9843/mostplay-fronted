@@ -10,6 +10,7 @@ import bd_flag from '../../assets/bd_flag.png';
 import in_flag from '../../assets/in_flag.png';
 import pk_flag from '../../assets/pk_flag.png';
 import np_flag from '../../assets/np_flag.png';
+import { baseURL_For_IMG_UPLOAD } from '../../utils/baseURL';
 
 // Styled components
 const LanguageBoxContainer = styled.div`
@@ -208,7 +209,7 @@ export default function HeaderLanguageBox({ onClose }) {
             selected={currentCountry === currencyToCountryMap[option.value]}
             onClick={() => handleSelect(option.value)}
           >
-            <Flag src={option.flag} alt={`${option.value} flag`} />
+            <Flag src={`${baseURL_For_IMG_UPLOAD}s/${option.flag}`} alt={`${option.value} flag`} />
             <Currency>{option.currency}</Currency>
             <LanguageContainer className="row m-0 p-0 d-flex justify-content-center">
               {option.languages.map((lang, index) => (

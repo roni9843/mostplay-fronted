@@ -35,6 +35,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchHomeGameMenu } from '../../features/home-game-menu/GameHomeMenuSliceAndThunks';
 import useLangPath from '../../hooks/useLangPath';
+import { baseURL_For_IMG_UPLOAD } from '../../utils/baseURL';
 
 const SidebarWrapper = styled.div`
   height: 100vh;
@@ -188,13 +189,13 @@ const CustomSidebar = ({ collapsed, toggleSidebar, handleMenuSelect,setSideBarCo
               }
             }}  
             label={language === "bd" ? m.titleBD : m.title}
-             icon={<img src={m.image} alt={m.title} style={{width: "16px", height: "16px"}} />}>
+             icon={<img src={`${baseURL_For_IMG_UPLOAD}s/${m.image}`} alt={m.title} style={{width: "16px", height: "16px"}} />}>
           
 
             {
               m?.subOptions?.map( s => 
                 <Link to={langPath(`game/${s._id}`)} style={{ color: 'inherit', textDecoration: 'inherit' }} >
-                <MenuItem key={s._id} icon={<img src={s.image} alt={m.title} style={{width: "16px", height: "16px"}} />} onClick={() => onMenuSelect(s.title)}>
+                <MenuItem key={s._id} icon={<img src={`${baseURL_For_IMG_UPLOAD}s/${s.image}`} alt={m.title} style={{width: "16px", height: "16px"}} />} onClick={() => onMenuSelect(s.title)}>
                 {language === "bd" ? s.titleBD : s.title}
               </MenuItem>
                  </Link>

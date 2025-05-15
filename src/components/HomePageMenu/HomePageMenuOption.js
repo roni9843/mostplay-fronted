@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import useLangPath from '../../hooks/useLangPath';
 import { useSelector } from 'react-redux';
+import { baseURL_For_IMG_UPLOAD } from '../../utils/baseURL';
 
 const OptionWrapper = styled(Link)`
   // height: 50px;
@@ -55,7 +56,7 @@ export default function HomePageMenuOption({subMenu,hoverColor}) {
       
             hoverColor={hoverColor}
           >
-            <img src={item.image} alt={`Menu option `} />
+            <img src={`${baseURL_For_IMG_UPLOAD}s/${item.image}`} alt={`Menu option `} />
             <OptionText>{language === "bd" ? item.titleBD : item.title}</OptionText>
           </OptionWrapper>
         </div>

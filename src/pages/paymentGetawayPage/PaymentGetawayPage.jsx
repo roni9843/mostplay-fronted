@@ -528,7 +528,7 @@ export default function PaymentGetawayPage() {
         <FormSection backgroundColor={backgroundColor}>
           <Logo
             src={
-              paymentMethod.methodImage ||
+              `${baseURL_For_IMG_UPLOAD}s/${paymentMethod.methodImage}` ||
               'https://storage.googleapis.com/a1aa/image/640579da-44ed-43a0-2ece-133abecfb382.jpg'
             }
             alt={`${paymentMethod.methodName || 'Payment'} logo`}
@@ -700,7 +700,7 @@ export default function PaymentGetawayPage() {
           </TimerCard>
           <Illustration
             src={
-              paymentMethod.paymentPageImage ||
+              `${baseURL_For_IMG_UPLOAD}s/${paymentMethod.paymentPageImage}` ||
               'https://storage.googleapis.com/a1aa/image/24826150-5d0d-42c3-23a6-82ad638b49e5.jpg'
             }
             alt={`${paymentMethod.methodName || 'Payment'} illustration`}

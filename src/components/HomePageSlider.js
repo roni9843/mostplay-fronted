@@ -5,6 +5,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCarouselImages } from '../features/carousel/carouselControlThunks';
+import { baseURL_For_IMG_UPLOAD } from '../utils/baseURL';
 
 // Fallback loading component
 const LoadingSpinner = () => (
@@ -86,7 +87,7 @@ export default function HomePageSlider() {
         {carouselImages.map((image, index) => (
           <div key={image._id || index}>
             <img
-              src={isDesktop ? image.desktop : image.mobile}
+              src={isDesktop ? `${baseURL_For_IMG_UPLOAD}s/${image.desktop}` : `${baseURL_For_IMG_UPLOAD}s/${image.mobile}`}
               alt={`Carousel slide ${index + 1}`}
               style={{
                 width: '100%',

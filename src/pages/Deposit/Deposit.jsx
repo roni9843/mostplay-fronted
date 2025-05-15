@@ -857,7 +857,7 @@ const Deposit = ({ isOpen, onClose }) => {
                     bonusContent={getBonusContent(method._id)}
                   >
                     <img
-                      src={method.methodImage || defaultPaymentIcon}
+                      src={`${baseURL_For_IMG_UPLOAD}s/${method.methodImage}` || `${baseURL_For_IMG_UPLOAD}s/${defaultPaymentIcon}`}
                       alt={method.methodName}
                       height="40"
                       onError={(e) => (e.target.src = defaultPaymentIcon)}
@@ -887,7 +887,7 @@ const Deposit = ({ isOpen, onClose }) => {
                 {(optionSelect === 'deposit' ? activeDepositMethods : activeWithdrawMethods).map((method) => (
                   <PaymentItem key={method._id} bonusContent={getBonusContent(method._id)}>
                     <img
-                      src={method.methodImage || defaultPaymentIcon}
+                      src={`${baseURL_For_IMG_UPLOAD}s/${method.methodImage}` || `${baseURL_For_IMG_UPLOAD}s/${defaultPaymentIcon}`}
                       alt={method.methodName}
                       height="40"
                       onError={(e) => (e.target.src = defaultPaymentIcon)}

@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import { useNavigate } from 'react-router-dom';
 import useLangPath from '../../hooks/useLangPath';
+import { baseURL_For_IMG_UPLOAD } from '../../utils/baseURL';
 
 const HomeContainer = styled.div`
   padding: 0px;
@@ -255,7 +256,7 @@ export default function GameViewSection() {
             {displayedGames.map((game) => (
               <div key={game._id} className="col-6 col-md-2">
                 <GameCard to={langPath(`game-page/${game._id}`)}>
-                  <GameImage src={game.image} alt={game.name} />
+                  <GameImage src={`${baseURL_For_IMG_UPLOAD}s/${game.image}`} alt={game.name} />
                   <GameTitle>{game.name}</GameTitle>
                 </GameCard>
               </div>

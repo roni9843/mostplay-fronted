@@ -9,6 +9,7 @@ import { FaBars, FaMoneyBillWave, FaSync, FaUserCircle } from 'react-icons/fa';
 import useLangPath from '../../hooks/useLangPath';
 import HeaderDesktopProfileMenu from './HeaderDesktopProfileMenu/HeaderDesktopProfileMenu';
 import { getBalance } from '../../features/auth/authThunks';
+import { baseURL_For_IMG_UPLOAD } from '../../utils/baseURL';
 
 // Define keyframes for slide animations
 const slideIn = keyframes`
@@ -316,7 +317,7 @@ export default function Header({ sideBarCollapsed, setSideBarCollapsed, setShowP
         <IconButton theme={{ whiteColor }} onClick={() => setSideBarCollapsed(!sideBarCollapsed)}>
           <FaBars />
         </IconButton>
-        <Logo src={websiteLogoWhite} alt="Logo" onClick={() => navigate(langPath(''))} />
+        <Logo src={`${baseURL_For_IMG_UPLOAD}s/${websiteLogoWhite}`} alt="Logo" onClick={() => navigate(langPath(''))} />
       </div>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         {!isAuthenticated ? (

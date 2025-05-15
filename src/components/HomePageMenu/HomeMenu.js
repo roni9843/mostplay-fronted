@@ -5,6 +5,7 @@ import home_menu_1_blue from "../../assets/home_menu_1_blue.png";
 import HomePageMenuOption from './HomePageMenuOption';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchHomeGameMenu } from '../../features/home-game-menu/GameHomeMenuSliceAndThunks';
+import { baseURL_For_IMG_UPLOAD } from '../../utils/baseURL';
 
 
 const MenuContainer = styled.div`
@@ -234,7 +235,7 @@ export default function HomeMenu() {
             }}
         >
           <MenuImage 
-            src={item.image}
+            src={`${baseURL_For_IMG_UPLOAD}s/${item.image}`}
             alt={`${item.title} icon`}
           />
           <MenuText>{language === "bd" ? item.titleBD : item.title}</MenuText>
