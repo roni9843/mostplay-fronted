@@ -6,13 +6,17 @@ import { FaTimes, FaEye } from "react-icons/fa";
 import logo from "../assets/logo.png";
 import { loginUser } from "../features/auth/authThunks";
 import useLangPath from "../hooks/useLangPath";
+import login_bd_img from "../assets/login_bd_img.jpg"
+
 
 // Styled Components
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #EFEFF0;
+  background-image: url(${login_bd_img});
+  background-size: cover;
+  background-position: center;
 
   @media (min-width: 769px) {
     padding-top: 50px;
@@ -55,8 +59,8 @@ const LoginBox = styled.div`
   flex: 1;
   background-color: white;
   padding-bottom: 2rem;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 10px;
+  //border-bottom-right-radius: 10px;
 `;
 
 const Logo = styled.h1`

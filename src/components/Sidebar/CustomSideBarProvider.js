@@ -100,11 +100,27 @@ export default function CustomSideBarProvider({ children }) {
             }}
           >
             <Header
+
+
+              showDepositPopup={showDepositPopup}
+              setShowDepositPopup={setShowDepositPopup}
+              showPromotionPopup={showPromotionPopup}
+              setShowPromotionPopup={setShowPromotionPopup}
+              showVoucherPopup={showVoucherPopup}
+              setShowVoucherPopup={setShowVoucherPopup}
+              showHandleBettingRecordsPopup={showHandleBettingRecordsPopup}
+              setShowHandleBettingRecordsPopup={setShowHandleBettingRecordsPopup}
+              showPersonalInformationPopup={showPersonalInformationPopup}
+              setShowPersonalInformationPopup={setShowPersonalInformationPopup}
+              showTurnoverPopup={showTurnoverPopup}
+              setShowTurnoverPopup={setShowTurnoverPopup}
+              showTransactionRecordsPopup={showTransactionRecordsPopup}
+              setShowTransactionRecordsPopup={setShowTransactionRecordsPopup}
               showPromotionSideBarPopup={showPromotionSideBarPopup}
               setShowPromotionSideBarPopup={setShowPromotionSideBarPopup}
               setSideBarCollapsed={setSideBarCollapsed}
               sideBarCollapsed={sideBarCollapsed}
-                   showPasswordChangePopup={showPasswordChangePopup}
+              showPasswordChangePopup={showPasswordChangePopup}
               setShowPasswordChangePopup={setShowPasswordChangePopup}
             />
             {children}

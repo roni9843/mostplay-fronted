@@ -111,6 +111,9 @@ const iconMap = {
 };
 
 export default function HeaderDesktopProfileMenu({ handleProfileMenuClose,handleDepositPopupOpen,handleMyPromotionPopupClose,handleMyPromotionPopupOpen,handleVoucherPopupOpen,handleBettingRecordsPopupOpen ,handlePersonalInformationPopupOpen , handleTurnoverPopupOpen , handleTransactionRecordsPopupOpen , showPasswordChangePopup , setShowPasswordChangePopup}) {
+
+  const { user } = useSelector((state) => state.auth);
+
   const { language } = useSelector((state) => state.theme);
   const dispatch = useDispatch();
   const menuItems =  [
@@ -139,6 +142,9 @@ export default function HeaderDesktopProfileMenu({ handleProfileMenuClose,handle
     console.log("Clicked path:", path);
 
     if (path === 'deposit') {
+
+      console.log("this is deposit");
+
       handleDepositPopupOpen();
     }
 
@@ -183,7 +189,7 @@ export default function HeaderDesktopProfileMenu({ handleProfileMenuClose,handle
 
   return (
     <ProfileMenu onMouseDown={(e) => e.stopPropagation()}>
-      <Username>roni9843</Username>
+      <Username>{user?.name}</Username>
       <MenuList>
         {menuItems.map((item, index) => (
           <React.Fragment key={item.path}>

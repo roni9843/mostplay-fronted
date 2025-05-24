@@ -8,13 +8,16 @@ import { signupUser } from "../features/auth/authThunks";
 import HomePageSlider from './../components/HomePageSlider';
 import { clearError } from "../features/auth/authSlice";
 import useLangPath from "../hooks/useLangPath";
+import signup_bg_img from "../assets/signup_bg_img.jpg"
 
 // Styled Components
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #EFEFF0;
+  background-image: url(${signup_bg_img});
+  background-size: cover;
+  background-position: center;
   padding-bottom: 100px;
 
   .error {
@@ -60,8 +63,8 @@ const RegisterBox = styled.div`
   flex: 1;
   background-color: white;
   padding-bottom: 2rem;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 10px;
+ // border-bottom-right-radius: 10px;
 `;
 
 const Form = styled.form`

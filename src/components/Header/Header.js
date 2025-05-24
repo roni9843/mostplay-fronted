@@ -238,8 +238,28 @@ const darkenColor = (hex, amount) => {
   return `#${Math.round(r).toString(16).padStart(2, '0')}${Math.round(g).toString(16).padStart(2, '0')}${Math.round(b).toString(16).padStart(2, '0')}`;
 };
 
-export default function Header({ sideBarCollapsed, setSideBarCollapsed, setShowPromotionSideBarPopup, showPromotionSideBarPopup ,     showPasswordChangePopup,
-              setShowPasswordChangePopup}) {
+export default function Header({
+    sideBarCollapsed,
+    setSideBarCollapsed,
+    showPromotionSideBarPopup,
+    setShowPromotionSideBarPopup,
+    showPasswordChangePopup,
+    setShowPasswordChangePopup,
+    showDepositPopup,
+    setShowDepositPopup,
+    showPromotionPopup,
+    setShowPromotionPopup,
+    showVoucherPopup,
+    setShowVoucherPopup,
+    showHandleBettingRecordsPopup,
+    setShowHandleBettingRecordsPopup,
+    showPersonalInformationPopup,
+    setShowPersonalInformationPopup,
+    showTurnoverPopup,
+    setShowTurnoverPopup,
+    showTransactionRecordsPopup,
+    setShowTransactionRecordsPopup
+}) {
   const navigate = useNavigate();
   const langPath = useLangPath();
   const { primaryColor, secondaryColor, whiteColor, websiteLogoWhite } = useSelector((state) => state.theme);
@@ -349,7 +369,7 @@ export default function Header({ sideBarCollapsed, setSideBarCollapsed, setShowP
                 const depositPath = pathnameArr.join('/');
                 const newUrl = `${protocol}//${host}${depositPath}`;
                 window.history.replaceState({}, '', newUrl);
-                setShowPromotionSideBarPopup(true); // Temporary for testing; replace with setShowDepositPopup in final version
+                setShowDepositPopup(true); // Temporary for testing; replace with setShowDepositPopup in final version
               }}
             >
               <FaMoneyBillWave style={{ marginRight: '8px' }} />
@@ -371,16 +391,16 @@ export default function Header({ sideBarCollapsed, setSideBarCollapsed, setShowP
             {showProfileMenu && (
               <div ref={profileMenuRef}>
                 <HeaderDesktopProfileMenu
-                  handleDepositPopupOpen={() => setShowPromotionSideBarPopup(true)} // Temporary; replace with setShowDepositPopup
+                  handleDepositPopupOpen={() => setShowDepositPopup(true)} // Temporary; replace with 
                   handleProfileMenuClose={handleProfileMenuClose}
                   handleMyPromotionPopupOpen={() => setShowPromotionSideBarPopup(true)} // Temporary
                   handleMyPromotionPopupClose={() => setShowPromotionSideBarPopup(false)} // Temporary
-                  handleVoucherPopupOpen={() => setShowPromotionSideBarPopup(true)} // Temporary
-                  handleBettingRecordsPopupOpen={() => setShowPromotionSideBarPopup(true)} // Temporary
-                  handlePersonalInformationPopupOpen={() => setShowPromotionSideBarPopup(true)} // Temporary
-                  handleTurnoverPopupOpen={() => setShowPromotionSideBarPopup(true)} // Temporary
-                  handleTransactionRecordsPopupOpen={() => setShowPromotionSideBarPopup(true)} // Temporary
-                       showPasswordChangePopup={showPasswordChangePopup}
+                  handleVoucherPopupOpen={() => setShowVoucherPopup(true)} // Temporary
+                  handleBettingRecordsPopupOpen={() => setShowHandleBettingRecordsPopup(true)} // Temporary
+                  handlePersonalInformationPopupOpen={() => setShowPersonalInformationPopup(true)} // Temporary
+                  handleTurnoverPopupOpen={() => setShowTurnoverPopup(true)} // Temporary
+                  handleTransactionRecordsPopupOpen={() => setShowTransactionRecordsPopup(true)} // Temporary
+                  showPasswordChangePopup={showPasswordChangePopup}
               setShowPasswordChangePopup={setShowPasswordChangePopup}
                 />
               </div>

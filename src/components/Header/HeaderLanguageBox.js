@@ -7,12 +7,10 @@ import { setLanguage, setCountry } from '../../features/theme/themeSlice';
 
 // Import flag images
 import bd_flag from '../../assets/bd_flag.png';
-import in_flag from '../../assets/in_flag.png';
-import pk_flag from '../../assets/pk_flag.png';
-import np_flag from '../../assets/np_flag.png';
+import en_flag from '../../assets/us_flag.png'; // Added English flag
 import { baseURL_For_IMG_UPLOAD } from '../../utils/baseURL';
 
-// Styled components
+// Styled components (unchanged)
 const LanguageBoxContainer = styled.div`
   background-color: white;
   border-radius: 8px;
@@ -105,32 +103,24 @@ const LanguageButton = styled.button`
 const languageToCodeMap = {
   English: 'en',
   'বাংলা': 'bd',
-  'हिन्दी': 'in',
-  'नेपाली': 'np',
 };
 
 // Reverse mapping for display
 const codeToLanguageMap = {
   en: 'English',
   bd: 'বাংলা',
-  in: 'हिन्दी',
-  np: 'नेपाली',
 };
 
 // Currency to country code mapping
 const currencyToCountryMap = {
-  INR: 'in',
   BDT: 'bd',
-  PKR: 'pk',
-  NPR: 'np',
+  USD: 'en', // Using USD for English, can be changed to another currency if needed
 };
 
 // Currency to default language mapping
 const currencyToDefaultLanguage = {
-  INR: 'हिन्दी',
   BDT: 'বাংলা',
-  PKR: 'English',
-  NPR: 'नेपाली',
+  USD: 'English',
 };
 
 export default function HeaderLanguageBox({ onClose }) {
@@ -142,28 +132,16 @@ export default function HeaderLanguageBox({ onClose }) {
 
   const options = [
     {
-      flag: in_flag,
-      currency: '₹ INR',
-      languages: ['English', 'हिन्दी'],
-      value: 'INR',
-    },
-    {
       flag: bd_flag,
       currency: '৳ BDT',
-      languages: ['বাংলা', 'English'],
+      languages: ['বাংলা'],
       value: 'BDT',
     },
     {
-      flag: pk_flag,
-      currency: 'Rs PKR',
+      flag: en_flag,
+      currency: '$ USD', // Adjust currency as needed
       languages: ['English'],
-      value: 'PKR',
-    },
-    {
-      flag: np_flag,
-      currency: 'Rs NPR',
-      languages: ['नेपाली', 'English'],
-      value: 'NPR',
+      value: 'USD',
     },
   ];
 
@@ -199,7 +177,7 @@ export default function HeaderLanguageBox({ onClose }) {
   return (
     <LanguageBoxContainer>
       <Title>
-        {language === 'bd' ? 'কারেন্সি এবং ভাষা' : language === 'in' ? 'मुद्रा और भाषा' : language === 'np' ? 'करन्सी र भाषा' : language === 'en' ? 'Currency and Language' : 'کرنسی اور زبان'}
+        {language === 'bd' ? 'কারেন্সি এবং ভাষা' : 'Currency and Language'}
         <CloseIcon onClick={onClose} />
       </Title>
       <Grid>
@@ -209,8 +187,10 @@ export default function HeaderLanguageBox({ onClose }) {
             selected={currentCountry === currencyToCountryMap[option.value]}
             onClick={() => handleSelect(option.value)}
           >
-            <Flag src={`${baseURL_For_IMG_UPLOAD}s/${option.flag}`} alt={`${option.value} flag`} />
-            <Currency>{option.currency}</Currency>
+            <Flag src={`${option.flag}`} alt={`${option.value} flag`} />
+          {
+            //  <Currency>{option.currency}</Currency>
+            }
             <LanguageContainer className="row m-0 p-0 d-flex justify-content-center">
               {option.languages.map((lang, index) => (
                 <LanguageButton

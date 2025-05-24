@@ -151,7 +151,7 @@ export default function HomeMenu() {
     (state) => state.homeGameMenu
   );
 
-  const { language } = useSelector((state) => state.theme);
+  const { language , sidebarBodyColor } = useSelector((state) => state.theme);
 
 
 
@@ -238,7 +238,7 @@ export default function HomeMenu() {
             src={`${baseURL_For_IMG_UPLOAD}s/${item.image}`}
             alt={`${item.title} icon`}
           />
-          <MenuText>{language === "bd" ? item.titleBD : item.title}</MenuText>
+          <MenuText style={{color : sidebarBodyColor}}>{language === "bd" ? item.titleBD : item.title}</MenuText>
         </MenuItem>
       ))}
     </MenuWrapper>

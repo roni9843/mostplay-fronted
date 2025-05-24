@@ -44,7 +44,7 @@ const SidebarWrapper = styled.div`
   position: sticky;
   top: 0;
   //background: linear-gradient(180deg, #2c3e50 0%, #1a2634 100%);
-  background-color:#fff !important;
+ // background-color:#fff !important;
   color: #163E91;
 
 
@@ -101,7 +101,7 @@ const SidebarHeader = styled.div`
   justify-content: center;
 
   align-items: center;
-  background-color: #163E91 !important;
+//  background-color: #163E91 !important;
 
 `;
 
@@ -122,7 +122,7 @@ const CustomSidebar = ({ collapsed, toggleSidebar, handleMenuSelect,setSideBarCo
 
    const { language } = useSelector((state) => state.theme);
 
-
+  const { sidebarHeaderColor,sidebarBodyColor,sidebarTitle,sidebarTitleBD } = useSelector((state) => state.theme);
 
 
  
@@ -136,11 +136,11 @@ const CustomSidebar = ({ collapsed, toggleSidebar, handleMenuSelect,setSideBarCo
   };
 
   return (
-    <SidebarWrapper>
+    <SidebarWrapper >
       <Sidebar
       
       collapsed={collapsed} className="sidebar"   >
-        <SidebarHeader>
+        <SidebarHeader  style={{backgroundColor:sidebarHeaderColor}}>
           <span 
             style={{
               textAlign: "center",
